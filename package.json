@@ -1,5 +1,23 @@
 {
   "dependencies": {
     "discord.js": "^11.4.2"
-  }
+  },
+  "name": "dndbot",
+  "description": "* So far it doesn't do much\r * Start bot with `node bot.js` from the command line\r * `d!help` for list of commands",
+  "version": "1.0.0",
+  "main": "bot.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickrodgers42/dnd-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nickrodgers42/dnd-bot/issues"
+  },
+  "homepage": "https://github.com/nickrodgers42/dnd-bot#readme"
 }

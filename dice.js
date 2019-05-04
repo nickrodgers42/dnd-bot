@@ -1,8 +1,9 @@
 class Dice {
-    constructor() {
+    constructor() {}
 
-    }
-
+    /*
+    * Rolls numDice of dieSize and adds the modifier to the total
+    */
     rollDice(numDice, dieSize, modifier) {
         let result = {
             rolls: [],
@@ -17,40 +18,31 @@ class Dice {
         return result;
     }
 
-    rollDisadvantage(numDice, dieSize, modifier) {
+    /*
+    * Rolls dice with advantage or disadvantage
+    */
+    rollAdvantage(numDice, dieSize, modifier, disadvantage) {
         let roll1 = this.rollDice(numDice, dieSize, modifier);
         let roll2 = this.rollDice(numDice, dieSize, modifier);
         let resultStr = ""
         resultStr += this.formatResult(roll1);
         resultStr += "\nAnd "
         resultStr += this.formatResult(roll2);
-        resultStr += "\nYour total with disadvantage is "
-        if (roll1.total > roll2.total) {
-            resultStr += roll2.total.toString();
+        if (disadvantage) {
+            resultStr += "\nYour total with disadvantage is "
+            resultStr += Math.min(roll1.total, roll2.total).toString();
         }
         else {
-            resultStr += roll1.total.toString();
-        } 
-        return resultStr;
-    }
-
-    rollAdvantage(numDice, dieSize, modifier) {
-        let roll1 = this.rollDice(numDice, dieSize, modifier);
-        let roll2 = this.rollDice(numDice, dieSize, modifier);
-        let resultStr = ""
-        resultStr += this.formatResult(roll1);
-        resultStr += "\nAnd "
-        resultStr += this.formatResult(roll2);
-        resultStr += "\nYour total with advantage is "
-        if (roll1.total < roll2.total) {
-            resultStr += roll2.total.toString();
-        }
-        else {
-            resultStr += roll1.total.toString();
+            resultStr += "\nYour total with advantage is "
+            resultStr += Math.max(roll1.total, roll2.total).toString();
         }
         return resultStr;
     }
 
+    /*
+    * Takes the results of a roll and formats them
+    * i.e. "You rolled a __ for a total of __"
+    */
     formatResult(roll) {
         let resultStr = "You rolled a ";
         if (roll.rolls.length > 1) {
@@ -61,11 +53,15 @@ class Dice {
             resultStr += " for a total of " + roll.total.toString();
         }
         else {
-            resultStr += roll.rolls[0].toString();
+            resultStr += roll.total.toString();
         }
         return resultStr;
     }
 
+    /*
+    * Interprets a roll string and gives a result
+    * Rolls in the form <r[x]d[y] [modifiers]? [adavantage|disadvantage]?>
+    */
     roll(roll) {
         let diceRegExp = new RegExp(/(r\d+d\d+)(\s*[+-]\s*\d*)?/);
         if (diceRegExp.test(roll)) {
@@ -90,19 +86,25 @@ class Dice {
             else if (dieSize > 100) {
                 resultStr = "I can only roll up to a d100!";
             }
+            else if (modifier > 100 || modifier < -100) {
+                resultStr = "I can only handle a modifier between -100 and 100";
+            }
             else if (numDice < 1 || dieSize < 1) {
                 resultStr = "I don't understand";
             }
             else if (roll.match(/(disadvantage)/) != null) {
-                resultStr = this.rollDisadvantage(numDice, dieSize, modifier);
+                resultStr = this.rollAdvantage(numDice, dieSize, modifier, true);
             }
             else if (roll.match(/(advantage)/) != null) {
-                resultStr = this.rollAdvantage(numDice, dieSize, modifier);
+                resultStr = this.rollAdvantage(numDice, dieSize, modifier, false);
             }
             else {
                 resultStr = this.formatResult(this.rollDice(numDice, dieSize, modifier));
             }
             return resultStr;
+        }
+        else {
+            return "I don't understand"
         }
     }
 }

@@ -32,12 +32,24 @@ client.on('message', message => {
             if (args != null) {
                 message.channel.send(help.general);
             }
+            if (args[0] == "dice") {
+                message.channel.send(help.dice);
+            }
             else {
                 message.channel.send('Unrecognized arguments to help command');
             }
         }
         else if (diceRegExp.test(primaryCommand)) {
             message.channel.send(Dice.roll(fullCommand));
+        }
+        else if (primaryCommand == 'flipCoin') {
+            let coin = Math.round(math.random());
+            if (coin == 1) {
+                message.channel.send("Heads");
+            }
+            else {
+                message.channel.send("Tails");
+            }
         }
         else {
             message.channel.send('Command Unrecognized');
