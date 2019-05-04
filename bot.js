@@ -3,9 +3,9 @@
 */
 
 const Discord = require('discord.js');
-const discordToken = require('./discordToken.js');
-const help = require('./help.js');
-
+const discordToken = require('./discordToken');
+const help = require('./help');
+const Dice = require('./dice');
 // Creates an instance of a Discord Client
 const client = new Discord.Client();
 
@@ -27,9 +27,9 @@ client.on('message', message => {
         let primaryCommand = splitCommand[0];
         let args = splitCommand.slice(1);
 
-        let diceRegExp = new RegExp(/(r\d*d\d*)(\s*[+-]\s*\d*)?/);
+        let diceRegExp = new RegExp(/(r\d+d\d+)(\s*[+-]\s*\d*)?/);
         if (primaryCommand == 'help') {
-            if (args.length == 1) {
+            if (args != null) {
                 message.channel.send(help.general);
             }
             else {
@@ -37,7 +37,7 @@ client.on('message', message => {
             }
         }
         else if (diceRegExp.test(primaryCommand)) {
-            message.channel.send('You rolled a die');
+            message.channel.send(Dice.roll(fullCommand));
         }
         else {
             message.channel.send('Command Unrecognized');
