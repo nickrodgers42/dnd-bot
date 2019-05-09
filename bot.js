@@ -6,6 +6,7 @@ const Discord = require('discord.js');
 const discordToken = require('./discordToken');
 const help = require('./help');
 const Dice = require('./dice');
+const Spells = require('./spells');
 // Creates an instance of a Discord Client
 const client = new Discord.Client();
 
@@ -50,6 +51,10 @@ client.on('message', message => {
             else {
                 message.channel.send("Tails");
             }
+        }
+        else if (primaryCommand == 'searchSpells' && args.length >= 1) {
+            let searchString = fullCommand.substring('searchSpells'.length).trim();
+            message.channel.send(Spells.searchSpells(searchString));
         }
         else {
             message.channel.send('Command Unrecognized');
