@@ -11,6 +11,10 @@ class ApiService {
     getSpellList() {
         return `${this.apiLocation}/spells/`;
     }
+
+    getSpell(spellNum) {
+        return `${this.apiLocation}/spells/${spellNum}`;
+    }
 }
 
 const apiService = new ApiService();

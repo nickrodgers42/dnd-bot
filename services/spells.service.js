@@ -24,13 +24,30 @@ class SpellService {
                         spells: spells
                     })
                 })
-                .catch((error) => {reject(error)});
+                .catch((error) => {console.log(error)});
         });
+    }
+
+    getSpell(spellNum) {
+        return new Promise((resolve, reject) => {
+            fetch(apiService.getSpell(spellNum))
+                .then((response) => response.json())
+                .then((response) => {
+                    resolve({
+                        spell: response
+                    })
+                })
+                .catch((error) => { console.log(error); })
+        })
     }
 
     searchSpells(searchString) {
         const searcher = new FuzzySearch(this.spells, ['name'], {sort: true});
         return searcher.search(searchString);
+    }
+
+    getNumSpells() {
+        return this.spells.length;
     }
 }
 

@@ -56,6 +56,17 @@ client.on('message', message => {
             let searchString = fullCommand.substring('searchSpells'.length).trim();
             message.channel.send(Spells.searchSpells(searchString));
         }
+        else if (primaryCommand == 'lookupSpell' && args.length == 1) {
+            if (args[0].match(/\d*/)[0] == args[0]) {
+                let spellNum = parseInt(args[0]);
+                Spells.lookupSpell(spellNum).then((results) => {
+                    message.channel.send(results.results);
+                });
+            }
+            else {
+                message.channel.send('Unrecognized arguments to lookupSpell command');
+            }
+        }
         else {
             message.channel.send('Command Unrecognized');
         }
