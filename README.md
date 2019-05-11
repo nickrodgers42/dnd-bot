@@ -23,7 +23,7 @@
 ## API
 
 * [D&D 5e API](http://www.dnd5eapi.co/)
-  * This api uses the free Dungeons and Dragons 5th edition API found at http://www.dnd5eapi.co/
+  * This bot uses the free Dungeons and Dragons 5th edition API found at http://www.dnd5eapi.co/
   * The data requested from this api contains wrongly encoded strings and that is why you may see values like `â€™` in the responses.
 
 Dungeons and Dragons © 1993-2019 Wizards of the Coast LLC, a subsidiary of Hasbro
