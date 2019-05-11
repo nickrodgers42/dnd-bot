@@ -33,8 +33,11 @@ client.on('message', message => {
             if (args != null) {
                 message.channel.send(help.general);
             }
-            if (args[0] == "dice") {
+            else if (args[0] == "dice") {
                 message.channel.send(help.dice);
+            }
+            else if (args[0] == "spells") {
+                message.channel.send(help.spells);
             }
             else {
                 message.channel.send('Unrecognized arguments to help command');
