@@ -30,7 +30,7 @@ client.on('message', message => {
 
         let diceRegExp = new RegExp(/(r\d+d\d+)(\s*[+-]\s*\d*)?/);
         if (primaryCommand == 'help') {
-            if (args != null) {
+            if (args.length < 1) {
                 message.channel.send(help.general);
             }
             else if (args[0] == "dice") {
