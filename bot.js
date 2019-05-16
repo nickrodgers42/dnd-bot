@@ -4,7 +4,7 @@
 
 const Discord = require('discord.js');
 const discordToken = require('./discordToken');
-const help = require('./help');
+const help = require('./helpMenu');
 const Dice = require('./dice');
 const Spells = require('./spells');
 // Creates an instance of a Discord Client
@@ -47,12 +47,12 @@ client.on('message', message => {
             message.channel.send(Dice.roll(fullCommand));
         }
         else if (primaryCommand == 'flipCoin') {
-            let coin = Math.round(math.random());
-            if (coin == 1) {
-                message.channel.send("Heads");
+            let coin = Math.round(Math.random());
+            if (coin == 0) {
+                message.channel.send("Tails");
             }
             else {
-                message.channel.send("Tails");
+                message.channel.send("Heads");
             }
         }
         else if (primaryCommand == 'searchSpells' && args.length >= 1) {
